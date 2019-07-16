@@ -5,6 +5,8 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Edge;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using OpenQA.Selenium.Support.UI;
 
 namespace FirstTestFraemwork
 {
@@ -19,25 +21,45 @@ namespace FirstTestFraemwork
             IWebDriver driver = new ChromeDriver();
             driver.Navigate().GoToUrl("https://www.wikipedia.org/");
             driver.Manage().Window.Maximize();
-            List<String> textofanchor = new List<string>();
-            IReadOnlyCollection<IWebElement> anchorlist = driver.FindElements(By.TagName("a"));
-            foreach (IWebElement anchor in anchorlist)
+
+            List<string> CentralLenguages = new List<string>();
+            ReadOnlyCollection<IWebElement> languages = driver.FindElements(By.ClassName("central-featured-lang"));
+            foreach (IWebElement language in languages)
             {
-                if (anchor.Text.Length>0)
-                {
-                    if (anchor.Text.Contains("English"))
-                    {
-                        textofanchor.Add(anchor.Text);
-                        anchor.Click();
-                    }
-                    
-                }
-                
+                string lang = language.Text;
+                lang = lang.Substring(0, lang.LastIndexOf("\r"));
+                CentralLenguages.Add(lang);
             }
 
             string stop = "";
-            //driver.FindElement(By.XPath("//input[@id='searchInput']")).SendKeys("Selenium");
-            //driver.FindElement(By.XPath("//button[@class='pure-button pure-button-primary-progressive']")).Click();
+
+            SelectElement selectLanguage = new SelectElement(driver.FindElement(By.Id("searchLanguage")));
+            selectLanguage.SelectByText("Dansk");
+            selectLanguage.SelectByValue("be");
+            selectLanguage.SelectByIndex(0);
+            #region
+
+            //List<String> textofanchor = new List<string>();
+            //IReadOnlyCollection<IWebElement> anchorlist = driver.FindElements(By.TagName("a"));
+            //foreach (IWebElement anchor in anchorlist)
+            //{
+            //    if (anchor.Text.Length>0)
+            //    {
+            //        if (anchor.Text.Contains("English"))
+            //        {
+            //            textofanchor.Add(anchor.Text);
+            //            anchor.Click();
+            //        }
+
+            //    }
+
+            //}
+
+            //string stop = "";
+            ////driver.FindElement(By.XPath("//input[@id='searchInput']")).SendKeys("Selenium");
+            ////driver.FindElement(By.XPath("//button[@class='pure-button pure-button-primary-progressive']")).Click();
+            #endregion
+
             driver.Quit();
 
         }
