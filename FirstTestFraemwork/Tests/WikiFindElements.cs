@@ -20,41 +20,60 @@ namespace FirstTestFraemwork.Tests
             IWebDriver driver = new ChromeDriver();
             driver.Navigate().GoToUrl("https://www.wikipedia.org/");
             driver.Manage().Window.Maximize();
-            List<String> textofanchors = new List<string>();
-            ReadOnlyCollection<IWebElement> anchorLists = driver.FindElements(By.TagName("a"));
 
-            foreach (IWebElement anchor in anchorLists)
+            List<string> CentralLenguages = new List<string>();
+            ReadOnlyCollection<IWebElement> languages = driver.FindElements(By.ClassName("central-featured-lang"));
+            foreach (IWebElement language in languages)
             {
-                if (anchor.Text.Length>0)
-                {
-                    if (anchor.Text.Contains("English"))
-                    {
-                        textofanchors.Add(anchor.Text);
-                        
-                    }
-                    
-                }
-                
+                string lang = language.Text;
+                lang = lang.Substring(0, lang.LastIndexOf("\r"));
+                CentralLenguages.Add(lang);
             }
-
             string stop = "";
-            //driver.FindElement(By.XPath("//input[@id='searchInput']")).SendKeys("Selenium");
-            //driver.FindElement(By.XPath("//button[@class='pure-button pure-button-primary-progressive']")).Click();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
 
-            Actual = driver.FindElement(By.Id("firstHeading")).Text;
-            if (Actual.Contains(Expected))
-            {
-                Console.WriteLine("Test case Passed");
-                Assert.IsTrue(true, "Test case Passed");
-            }
-            else
-            {
-                Console.WriteLine( "Test case Failed" );
-            }
+            SelectElement selectLanguage = new SelectElement(driver.FindElement(By.Id("searchLanguage")));
+            selectLanguage.SelectByText("Deutsch");
+            selectLanguage.SelectByValue("be");
+            selectLanguage.SelectByIndex(0);
+            #region
+            //List<String> textofanchors = new List<string>();
+            //ReadOnlyCollection<IWebElement> anchorLists = driver.FindElements(By.TagName("a"));
 
+            //foreach (IWebElement anchor in anchorLists)
+            //{
+            //    if (anchor.Text.Length>0)
+            //    {
+            //        if (anchor.Text.Contains("English"))
+            //        {
+            //            textofanchors.Add(anchor.Text);
+                        
+            //        }
+                    
+            //    }
+                
+            //}
+
+            //string stop = "";
+            ////driver.FindElement(By.XPath("//input[@id='searchInput']")).SendKeys("Selenium");
+            ////driver.FindElement(By.XPath("//button[@class='pure-button pure-button-primary-progressive']")).Click();
+            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+            //Actual = driver.FindElement(By.Id("firstHeading")).Text;
+            //if (Actual.Contains(Expected))
+            //{
+            //    Console.WriteLine("Test case Passed");
+            //    Assert.IsTrue(true, "Test case Passed");
+            //}
+            //else
+            //{
+            //    Console.WriteLine( "Test case Failed" );
+            //}
+
+            #endregion
             driver.Close();
             driver.Quit();
         }
+
+        
     }
 }
