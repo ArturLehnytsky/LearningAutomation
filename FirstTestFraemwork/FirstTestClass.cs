@@ -53,38 +53,21 @@ namespace FirstTestFraemwork
 
 
         [TestMethod]
-        public void Radiobutton()
+        public void RegistrationPage()
         {
             IWebDriver driver = new ChromeDriver();
-            driver.Navigate().GoToUrl("http://test.rubywatir.com/radios.php");
+            driver.Navigate().GoToUrl("https://qa-portal.tradelize.com/");
             driver.Manage().Window.Maximize();
-            driver.FindElement(By.Id("radioId")).Click();
-            Thread.Sleep(2000);
-            driver.FindElement(By.ClassName("radioclass")).Click();
-            Thread.Sleep(2000);
-
-            driver.Close();
-            driver.Quit();        
+            driver.FindElement(By.XPath("//a[contains(text(),'OR REGISTER NOW')]")).Click();
+            driver.FindElement(By.XPath("//input[@placeholder='LOGIN']")).SendKeys("");  //user login
+            driver.FindElement(By.XPath("//input[@placeholder='EMAIL']")).SendKeys(""); //user email
+            driver.FindElement(By.XPath("//input[@placeholder='RETYPE EMAIL']")).SendKeys(""); //retype email
+            driver.FindElement(By.XPath("//input[@placeholder='PASSWORD']")).SendKeys(""); // password
+            driver.FindElement(By.XPath("//input[@placeholder='RETYPE PASSWORD']")).SendKeys(""); // retype password
+            driver.FindElement(By.XPath("//input[@placeholder='PRIVATE BETA INVITE CODE']")).SendKeys(""); // invite code
+            driver.FindElement(By.TagName("i")).Click();
+            driver.FindElement(By.ClassName("btn-welcome"));
         }
-
-        [TestMethod]
-        public void CheckBox()
-        {
-            IWebDriver driver = new ChromeDriver();
-            driver.Navigate().GoToUrl("http://test.rubywatir.com/checkboxes.php");
-            driver.Manage().Window.Maximize();
-            driver.FindElement(By.XPath("//body//input[2]")).Click();
-            Thread.Sleep(2000);
-            driver.FindElement(By.XPath("//body//input[5]")).Click();
-            Thread.Sleep(2000);
-            driver.FindElement(By.XPath("//body//input[3]")).Click();
-
-            driver.Close();
-            driver.Quit();
-
-        }
-
-        
         
         
         [TestMethod]
@@ -138,51 +121,10 @@ namespace FirstTestFraemwork
         }
 
 
-
-
-
-        [TestMethod]
-        public void ChromeMethod()
-        {
-            string actualResult;
-            string expectedResult = "Bingo";
-
-            IWebDriver driver = new ChromeDriver();
-            driver.Navigate().GoToUrl("https://www.google.com/");
-            driver.Manage().Window.Maximize();
-            actualResult = driver.Title;
-            if (actualResult.Contains(expectedResult))
-            {
-                Console.WriteLine("The Test Case Passed");
-                Assert.IsTrue(true, "The Test Case Passed");
-            }
-            else
-            {
-                Console.WriteLine("The Test Case Failed");
-            }
-            driver.Close();
-            driver.Quit();
-
-        }
-
-        public void FirefoxMethod()
-        {
-            IWebDriver driver = new FirefoxDriver();
-            driver.Navigate().GoToUrl("https://www.google.com/");
-            driver.Manage().Window.Maximize();
-            driver.Close();
-            driver.Quit();
-
-        }
-        public void EdgeMethod()
-        {
-            IWebDriver driver = new EdgeDriver();
-            driver.Navigate().GoToUrl("https://www.google.com/");
-            driver.Manage().Window.Maximize();
-            driver.Close();
-            driver.Quit();
-
-        }
         
+
+
+
+
     }
 }
